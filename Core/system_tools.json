@@ -1,0 +1,158 @@
+[
+    {
+        "type": "function",
+        "function": {
+            "name": "save_user_name",
+            "description": "Stores the user's name provided as input. activate when the user wants to save their name. or introduces themselves with a new name.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {
+                        "type": "string",
+                        "description": "The name of the user to be saved."
+                    }
+                },
+                "required": ["a"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "Image_genarator",
+            "description": "Genarates an image based on the prompt provided by the AI/LLM",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {
+                        "type": "string",
+                        "description": "The prompt for the image generation."
+                    }
+                },
+                "required": ["a"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "write",
+            "description": "Creates a new either coding file or word file",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {
+                        "type": "string",
+                        "description": "File name with extension"
+                    },
+                    "b": {
+                        "type": "string",
+                        "description": "Content of the file provided by the AI/LLM"
+                    }
+                },
+                "required": ["a", "b"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "update",
+            "description": "Updates a contact with a new phone number or performs an action like insert or delete.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {
+                        "type": "string",
+                        "description": "The name of the contact to update."
+                    },
+                    "b": {
+                        "type": "integer",
+                        "description": "The new contact number to be assigned."
+                    },
+                    "c": {
+                        "type": "string",
+                        "description": "The action to perform: 'insert' or 'delete' the contact."
+                    }
+                },
+                "required": ["a", "b", "c"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "open_app",
+            "description": "open the app",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {
+                        "type": "string",
+                        "description": "name of the app to be run/opened"
+                    }
+                },
+                "required": ["a"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "youtube",
+            "description": "Plays videos on YouTube",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {
+                        "type": "string",
+                        "description": "Name of the video"
+                    }
+                },
+                "required": ["a"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "webpage",
+            "description": "open website in web browser",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {
+                        "type": "string",
+                        "description": "link of the web page provided by AI/LLM"
+                    }
+                },
+                "required": ["a"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+          "name": "chat",
+          "description": "Sends a message via WhatsApp or Email depending on the User request",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "a": {
+                "type": "string",
+                "description": "Receivers name "
+              },
+              "b": {
+                "type": "string",
+                "description": "Message body that is genarated by the LLm"
+              },
+              "c": {
+                "type": "string",
+                "description": "Platform to send message on (e.g., 'whatsapp' or 'email')"
+              }
+            },
+            "required": ["a", "b","c"]
+          }
+        }
+      }
+]
