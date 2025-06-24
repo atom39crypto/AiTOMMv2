@@ -38,3 +38,109 @@ Supports conversational AI with visual feedback
 Saves user preferences & context
 
 Dynamic reasoning module (resoneing.txt)
+
+path
+
+AiTOMM 
+    |	 
+    |	 
+    |---Audio
+    |	 |---output
+    |	 |	    |---Output_0.mp3
+    |	 |	    |---Output_1.mp3
+    |	 |	    |---Output_2.mp3
+    |	 |
+    |	 |---Atom-Listen_en_windows_v3_0_0.ppn
+    |	 |---hey-Atom_en_windows_v3_0_0.ppn
+    |	 |---LICENSE.txt
+    |	 |---HWD.py
+    |	 |---STT.py
+    |	 |---TTS.py
+    |
+    |
+    |---Core
+    |	 |---Memo
+    |  	 |      |---memory.db
+    |	 |	    |---person_report.txt
+    |	 |	    |---last_memory.py
+    |	 |	    |---memo_db.py
+    |	 |	    |---relative_memory.py
+    |	 |	    |---save_memory.py
+    |	 |	    |---summery.py
+    |	 |
+    |	 |---AI.py
+    |	 |---Location.py
+    |	 |---tool_calls.py
+    |	 |---system_tools.json
+    |   
+    |
+    |---Mainframe
+    |    |
+    |    |---command.py
+    |    |---simple_tools.py
+    |    |---file_reader.py
+    |    |---reader.py
+    |    |---ScreenCapture.py
+    |    |---uploder.py
+    |
+    |
+    |---Tools
+    |    |
+    |    |---data.csv
+    |    |---APPS.py
+    |    |---contact.py
+    |    |---Small_Functions.py
+    |    |---tenmparature.py 
+    |    |---update.py
+    |    |---Whatsapp_controller.py
+    | 	 |---write.py
+    |	 |---youtube_controller.py
+    |	 |---launch_imageGen.py
+    |
+    |
+    |---VisualIntelligence
+    |      |
+    |      |---known_faces
+    |      |        |--- img.jpg
+    |      |---face_recognition
+    |      |        |--- faceRecog.py  
+    |      |---ObjectDetection
+    |      |        |--- ObjectDetection.py
+    |      |---Gesture_recognition
+    |      |        |--- eyetracker.py
+    |      |        |--- gestcrg.py
+    |      |
+    |      |---VisualInteligence.py
+    |      |---currentface.txt
+    |      |---output.txt
+    |
+    |---Frontend
+    |    |---background
+    |    |     |---command_ui.py
+    |    |     |---run_ui.py
+    |    |     |---STT_UI.py
+    |    |     |---TTS_ui.py		
+    |    |     
+    |    |     
+    |    |---Chatbot_Tutorial 0.5
+    |    |     |---index.html
+    |    |     |---script.js
+    |    |     |---style.css	
+    |	
+    |	
+    |---main.py
+    |---launcher.py
+    |---launcher.exe
+    |---big_blue_circle_cursor.cur
+    |---eye_cursor.cur
+    |---converter.py
+    |---Icon.png
+    |---python_server.py
+    |---resoneing.txt
+    |---run.py
+    |---run1.bat
+    |---run2.bat
+    |---run3.bat
+
+
+
