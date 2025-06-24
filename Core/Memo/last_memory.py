@@ -56,29 +56,6 @@ def load_memory(username, limit=6):
     # Convert each row to a dictionary and reverse to display in chronological order.
     return [dict(row) for row in rows][::-1]
 
-def save_conversation(username, u_resp, a_resp):
-    """
-    Save a pair of messages (user response and assistant response) into
-    the user's conversation table.
-    """
-    table_name = sanitize_table_name(username)
-    create_table_if_not_exists(username)
-    conn = get_connection()
-    cursor = conn.cursor()
-    try:
-        insert_query = f'INSERT INTO "{table_name}" (role, content) VALUES (?, ?)'
-        # Insert the user message.
-        cursor.execute(insert_query, ("user", u_resp))
-        # Insert the assistant message.
-        cursor.execute(insert_query, ("assistant", a_resp))
-        conn.commit()
-        print("New conversation data saved successfully.")
-        return {"status": "success", "message": "Data saved successfully"}
-    except sqlite3.Error as e:
-        print("Error saving conversation:", e)
-        return {"error": str(e)}
-    finally:
-        conn.close()
 
 if __name__ == "__main__":
     # Prompt the user for their username.
@@ -95,6 +72,3 @@ if __name__ == "__main__":
         # Example conversation to save.
         user_input = f"I am {username}"
         assistant_response = f"halo {username}"
-        
-        result = save_conversation(username, user_input, assistant_response)
-        print("\nSave result:", result)

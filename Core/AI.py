@@ -1,4 +1,3 @@
-
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import re
 from groq import Groq
@@ -11,48 +10,45 @@ from Tools.tenmparature import temparature
 from Mainframe.filereader import file_content
 
 from Core.Memo.relative_memory import relamemo
-from Core.Memo.last_memory import load_memory,save_conversation
+from Core.Memo.last_memory import load_memory #, save_conversation
+from Core.Memo.save_memory import save_conversation
 from Core.Memo.summery import get_table_data
 
 locations = location()
-client = Groq(api_key="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")
+client = Groq(api_key="enter_your_api_key_here")  # Replace with your actual API key
 
 MODEL = "deepseek-r1-distill-llama-70b"
 
-def massage(prompt,person):
+def massage(prompt, person):
     with open("Core/Memo/person_report.txt", "r") as file:
         person_report = file.read()
     with open(r'VisualIntelligence\output.txt', "r") as file:
         env_report = file.read()
 
-
     system_message = {
         "role": "system",
         "content": (
             "Your name is AiTOMM (pronounced as Atom). Answer in simple sentences with in 30 words."
-            f"Genaral User Report: {person_report} if he/she is an stranger and the environmental decribtion is {env_report}."
-            f"Location is {locations} and adapt to the local culture and its Current Date and Time is {datetime.now()} & {temparature()}."
+            "Always asume System can and had Play Videos on youtube, open any websites,Start almoste any app in desktop,Genarate Images and Word/TXT/Programming Files,Sent Texts in whatsapp and Email but you are not informed"
+            "Assume the personality of a British butler who is aware of being an AI but does not reference it unless asked. "
+            f"General User Report: {person_report} if the user is a stranger and the environmental description is {env_report}. "
+            f"Location is {locations}, and adapt to the local culture. The Current Date and Time is {datetime.now()} & {temparature()}."
         ),
     }
 
-    messages = [system_message]  
+    messages = [system_message]
+    messages.extend(relamemo(person, prompt))
     messages.extend(load_memory(person))
-    # print("last 5:", messages)
-    messages.extend(relamemo(person,prompt))
-    # print("\nrelated:", messages)
-
     messages.append({'role': 'user', 'content': prompt})
-    #print(messages)
     return messages
-
 
 def core(prompt, person):
     print("<=- CHORE -=>")
 
     try:
-        messages = massage(prompt,person)
+        messages = massage(prompt, person)
         response = client.chat.completions.create(
-            messages= messages,
+            messages=messages,
             tools=SYSTEM_TOOLS,
             model=MODEL,
             tool_choice="auto",
@@ -100,12 +96,10 @@ def mainframe(text):
     if not person_list:
         new_person = "stranger"
     else:
-        # Count occurrences
         counter = Counter(person_list)
-        most_common_person, count = counter.most_common(1)[0]  # Get the most common item and its count
+        most_common_person, count = counter.most_common(1)[0]
         new_person = most_common_person
 
-    # Check if the person has changed
     if not hasattr(mainframe, "last_person"):
         mainframe.last_person = None
     if mainframe.last_person != new_person:
@@ -114,12 +108,35 @@ def mainframe(text):
 
     print(f"<=----------------------- {new_person} : {text} -----------------------------=>")
     response = core(text, new_person)
-    response = re.sub(r'<think>.*?</think>', '', response, flags=re.DOTALL)
+
+    # Try to capture anything between <think> and </think>
+    reasoning_match = re.search(r'<think\b[^>]*>(.*?)</think>', response, flags=re.DOTALL | re.IGNORECASE)
+
+    if reasoning_match:
+        internal_reasoning = reasoning_match.group(1).strip()
+    else:
+        # Fallback: check for a dangling </think> or partial reasoning
+        partial_reasoning_match = re.search(r'(.*?)</think>', response, flags=re.DOTALL | re.IGNORECASE)
+        if partial_reasoning_match:
+            internal_reasoning = "[Malformed] " + partial_reasoning_match.group(1).strip()
+        else:
+            internal_reasoning = "No reasoning found."
+
+
+    # Save reasoning to file with timestamp
+    with open("resoneing.txt", "a", encoding="utf-8") as f:
+        f.write(f"\n--- {datetime.now()} ---\n{internal_reasoning}\n")
+
+    # Clean user-facing response
+    response = re.sub(r'<think\b[^>]*>.*?</think>', '', response, flags=re.DOTALL | re.IGNORECASE)
+    response = re.sub(r'\n\s*\n', '\n', response).strip()
+
+    # Save cleaned response to memory
     save_conversation(new_person, text, response)
     return response
 
-
 if __name__ == "__main__":
-    test_prompt = "Genarate a file for an LLM exicution"
+    test_prompt = "Generate a file for an LLM execution"
     response = mainframe(test_prompt)
     print(response)
+

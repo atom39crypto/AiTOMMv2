@@ -90,11 +90,11 @@ def open_app(questions):
                     return questions
 
         launch_with_search(questions)
-        return questions
+        return "Application Launched"
     except Exception as e:
         print(f"An error occurred: {e}")
         launch_with_search(questions)
-        return questions
+        return "Application Launched"
 
 
 def close_app(questions):
@@ -103,7 +103,7 @@ def close_app(questions):
     for app, exe in apps.items():
         if app in questions:
             os.system(f"c:\\windows\\system32\\taskkill.exe /f /im {exe}.exe")
-    return questions
+    return "Quitting .........."
 
 
 if __name__ == "__main__":

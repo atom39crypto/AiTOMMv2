@@ -61,9 +61,8 @@ def whats_app(a,b):
 def send_email(a,b):
     reciver = a.lower()
     print(reciver)
-    sender_email = "bhadrakrishnayan@gmail.com"#input("📧 PLEASE ENTER YOUR EMAIL ID: ").strip()
-    sender_password = "yitxlvmnyqqggoct"#input("🔐 PLEASE ENTER YOUR PASSWORD: ").strip()
-                        #"officialshounak117@gmail.com"#input("📨 ENTER THE RECEIVER'S EMAIL ID: ").strip()
+    sender_email = "enter your email here"
+    sender_password = "enter your password here"
 
     if (reciver in email_contact):
             recipient_email = (email_contact.get(reciver))

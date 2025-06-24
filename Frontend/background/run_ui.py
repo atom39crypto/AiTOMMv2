@@ -3,31 +3,26 @@ import numpy as np
 import matplotlib.animation as animation
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import os
+import re
 
 try:
-    # For drag-and-drop support
     from tkinterdnd2 import DND_FILES, TkinterDnD
 except ImportError:
     raise ImportError("Please install tkinterdnd2 using 'pip install tkinterdnd2'")
 
 def create_text_input_ui(hotkey_text):
-    """
-    Creates a Tkinter window with an animated wave background and a text input area.
-    Supports drag-and-drop file paths into the input box.
-    When submitted, stores the input text into the hotkey_text.value.
-    """
-    ui = TkinterDnD.Tk()  # Use TkinterDnD for drag-and-drop
+    ui = TkinterDnD.Tk()
     ui.overrideredirect(True)
     ui.attributes("-topmost", True)
     ui.configure(bg='white')
     ui.attributes("-alpha", 0.8)
-    ui.geometry("450x130+1470+30")
+    base_height = 130
+    ui.geometry(f"450x{base_height}+1470+30")
 
-    # Frame with Royal Blue border
     border_frame = tk.Frame(ui, bg="#4169E1", bd=2)
     border_frame.pack(fill=tk.BOTH, expand=True, padx=2, pady=2)
 
-    # Animated background
     fig = Figure(figsize=(9, 3), dpi=100, facecolor='white')
     ax = fig.add_subplot(111)
     ax.set_position([0, 0, 1, 1])
@@ -56,19 +51,42 @@ def create_text_input_ui(hotkey_text):
 
     ani = animation.FuncAnimation(fig, animate, fargs=(lines, x), frames=200, interval=10, blit=True)
 
-    # Input frame
     input_frame = tk.Frame(border_frame, bg="white")
-    input_frame.place(relx=0.5, rely=0.24, anchor="center")
-    entry = tk.Entry(input_frame, font=("Helvetica", 14), width=30, bd=2, relief="groove")
-    entry.pack(side="left", padx=5, pady=5)
+    input_frame.place(relx=0.5, y=2, anchor="n")
 
-    def submit_text(event=None):
-        user_input = entry.get().strip()
-        if user_input:
-            hotkey_text.value = user_input
+    text_box = tk.Text(input_frame, font=("Helvetica", 14), width=30, height=1, bd=2, relief="groove", wrap="word")
+    text_box.pack(side="left", padx=5, pady=5)
+
+    # Track dropped files: {placeholder_label: real_path}
+    dropped_files = {}
+
+    def on_key(event):
+        if event.keysym == "Return" and not (event.state & 0x0001):  # Shift not held
+            submit_text()
+            return "break"
+        update_height()
+
+    def update_height():
+        line_count = int(text_box.index('end-1c').split('.')[0])
+        text_box.configure(height=line_count)
+        new_height = base_height + (line_count - 1) * 25
+        ui.geometry(f"450x{new_height}+1470+30")
+
+    def submit_text():
+        user_input = text_box.get("1.0", "end-1c")
+
+        # Replace any 📄 filename occurrences with the real path
+        final_text = user_input
+        for label, path in dropped_files.items():
+            final_text = final_text.replace(label, path)
+
+        if final_text.strip():
+            hotkey_text.value = final_text
+
         ui.destroy()
 
-    # Close button
+    text_box.bind("<KeyRelease>", on_key)
+
     close_button = tk.Button(
         input_frame, text="✖", font=("Helvetica", 22, "bold"), fg="#8A2BE2",
         bg="white", width=2, height=1, border=0, relief="flat",
@@ -77,16 +95,19 @@ def create_text_input_ui(hotkey_text):
     )
     close_button.pack(side="left", padx=10)
 
-    entry.bind("<Return>", submit_text)
-
-    # Drag-and-drop file support
     def handle_drop(event):
-        filepath = event.data.strip().strip('{}')  # Clean up filepath
-        entry.delete(0, tk.END)
-        entry.insert(0, filepath)
+        filepath = event.data.strip().strip('{}')
+        filename = os.path.basename(filepath)
+        placeholder = f"📄 {filename}"
 
-    entry.drop_target_register(DND_FILES)
-    entry.dnd_bind('<<Drop>>', handle_drop)
+        cursor_pos = text_box.index(tk.INSERT)
+        text_box.insert(cursor_pos, placeholder)
+
+        # Map placeholder to actual file path
+        dropped_files[placeholder] = filepath
+        update_height()
+
+    text_box.drop_target_register(DND_FILES)
+    text_box.dnd_bind('<<Drop>>', handle_drop)
 
     ui.mainloop()
-

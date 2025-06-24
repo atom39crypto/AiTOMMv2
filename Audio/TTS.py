@@ -1,8 +1,9 @@
 import pygame
-from gtts import gTTS
+from Audio.TTS_Converter import tts
 import os
 import time
 import keyboard
+from pathlib import Path
 
 class TTS:
     def __init__(self, text, language="bn", max_words=20):
@@ -31,14 +32,16 @@ class TTS:
 
     def play_chunk(self, text, index):
         """Convert text to speech, save, and play audio."""
-        filename = f"Audio/output/output_{index}.mp3"
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        base_dir = Path(__file__).parent  # Directory of this script
+        output_dir = base_dir / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-        speech = gTTS(text=text, lang=self.language, slow=False)
-        speech.save(filename)
+        filename = output_dir / f"output_{index}.wav"
+
+        tts(prompt=text, file_path=str(filename))  # Save audio using tts()
 
         print(f"Playing chunk {index + 1}/{len(self.text_chunks)}: {text}")
-        pygame.mixer.music.load(filename)
+        pygame.mixer.music.load(str(filename))
         pygame.mixer.music.set_volume(0.5)  # Reduce volume to 50%
         pygame.mixer.music.play()
         self.update_ui(text)
@@ -94,4 +97,3 @@ class TTS:
     def update_ui(self, text):
         if hasattr(self, 'ui_callback'):
             self.ui_callback(text)
-

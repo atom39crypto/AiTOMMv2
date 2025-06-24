@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Icons and Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Eel connection -->
+  <script src="/eel.js"></script>
+
+  <title>Chatbot</title>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-title">AiTOMM</div>
+  </nav>
+
+  <!-- Intro -->
+  <div class="container">
+    <h1>Hello</h1>
+    <h2>Ask Something</h2>
+  </div>
+
+  <!-- Chat messages container -->
+  <div class="chat-container" id="chatContainer"></div>
+
+  <!-- Message input bar -->
+  <div class="messagebar">
+    <!-- File preview -->
+    <div class="file-preview-container" id="filePreviewContainer"></div>
+
+    <!-- Input controls -->
+    <div class="bar-wrapper">
+      <textarea id="prompt" placeholder="Enter your message..." rows="1"></textarea>
+
+      <!-- Voice input -->
+      <button id="audio-btn" title="Voice">
+        <i class="fas fa-microphone"></i>
+      </button>
+
+      <!-- Send button -->
+      <button id="sendBtn" title="Send">
+        <span class="material-symbols-rounded">send</span>
+      </button>
+
+      <!-- Upload file -->
+      <input type="file" id="fileInput" style="display: none;" />
+      <button id="uploadBtn" title="Upload File">
+        <i class="fas fa-paperclip"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p><strong>Note:</strong> AiTOMM can make mistakes. Please verify important information.</p>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

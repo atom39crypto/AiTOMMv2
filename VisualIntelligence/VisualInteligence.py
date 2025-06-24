@@ -36,7 +36,7 @@ def listen_for_hotkeys():
     print("Global hotkeys registered: Ctrl+Alt+A/G/E/M")
 
     while True:
-        if keyboard.is_pressed('esc'):
+        if keyboard.is_pressed('ctrl+esc'):
             print("Exiting program...")
             os._exit(0)  # forcefully terminate everything
         time.sleep(0.1)

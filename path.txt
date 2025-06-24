@@ -1,0 +1,132 @@
+AiTOMM 
+    |	 
+    |	 
+    |---Audio
+    |	 |---output
+    |	 |	    |---Output_0.mp3
+    |	 |	    |---Output_1.mp3
+    |	 |	    |---Output_2.mp3
+    |	 |
+    |	 |---Atom-Listen_en_windows_v3_0_0.ppn
+    |	 |---hey-Atom_en_windows_v3_0_0.ppn
+    |	 |---LICENSE.txt
+    |	 |---HWD.py
+    |	 |---STT.py
+    |	 |---TTS.py
+    |
+    |
+    |---Core
+    |	 |---Memo
+    |  	 |      |---memory.db
+    |	 |	    |---person_report.txt
+    |	 |	    |---last_memory.py
+    |	 |	    |---memo_db.py
+    |	 |	    |---relative_memory.py
+    |	 |	    |---summery.py
+    |	 |
+    |	 |---AI.py
+    |	 |---Location.py
+    |	 |---tool_calls.py
+    |	 |---system_tools.json
+    |   
+    |
+    |---Mainframe
+    |    |
+    |    |---command.py
+    |    |---simple_tools.py
+    |
+    |
+    |---Tools
+    |    |
+    |    |---data.csv
+    |    |---APPS.py
+    |    |---contact.py
+    |    |---Small_Functions.py
+    |    |---tenmparature.py 
+    |    |---update.py
+    |    |---Whatsapp_controller.py
+    | 	 |---write.py
+    |	 |---youtube_controller.py
+    |	 |---command.py
+    |	 |---features.py
+    |
+    |
+    |---VisualIntelligence
+    |      |
+    |      |---known_faces
+    |      |        |--- img.jpg
+    |      |---known_faces
+    |      |        |--- faceRecog.py  
+    |      |---ObjectDetection
+    |      |        |--- coco.names
+    |      |        |--- yolov4.cfg
+    |      |        |--- yolov4.weights
+    |      |        |--- ObjectDetection.py
+    |      |
+    |      |---VisualInteligence.py
+    |      |---currentface.txt
+    |      |---output.txt
+    |
+    |---Frontend
+    |    |---background
+    |    |     |---command_ui.py
+    |    |     |---run_ui.py
+    |    |     |---STT_UI.py
+    |    |     |---TTS_ui.py		
+    |    |     
+    |    |     
+    |    |---background
+    |    |     |---Chatbot_Tutorial 0.5
+    |    |     |---index.html
+    |    |     |---script.js
+    |    |     |---style.css	
+    |	
+    |	
+    |---main.py
+    |---launcher.py
+    |---launcher.exe
+    |---run.py
+
+
+
+AiTOMM
+│
+├── Audio
+│   ├── output (Output_0.mp3, Output_1.mp3, Output_2.mp3)
+│   ├── Atom-Listen_en_windows_v3_0_0.ppn
+│   ├── hey-Atom_en_windows_v3_0_0.ppn
+│   ├── LICENSE.txt
+│   ├── HWD.py
+│   ├── STT.py
+│   └── TTS.py
+│
+├── Core
+│   ├── Memo (memory.db, person_report.txt, last_memory.py, memo_db.py, relative_memory.py, summery.py)
+│   ├── AI.py
+│   ├── Location.py
+│   ├── tool_calls.py
+│   └── system_tools.json
+│
+├── Mainframe (command.py, simple_tools.py)
+│
+├── Tools (data.csv, APPS.py, contact.py, Small_Functions.py, tenmparature.py, update.py, Whatsapp_controller.py, write.py, youtube_controller.py, command.py, features.py)
+│
+├── VisualIntelligence
+│   ├── known_faces (img.jpg, faceRecog.py)
+│   ├── ObjectDetection (coco.names, yolov4.cfg, yolov4.weights, ObjectDetection.py)
+│   ├── VisualInteligence.py
+│   ├── currentface.txt
+│   └── output.txt
+│
+├── Frontend
+│   ├── background
+│   │   ├── command_ui.py
+│   │   ├── run_ui.py
+│   │   ├── STT_UI.py
+│   │   └── TTS_ui.py
+│   └── background (Chatbot_Tutorial 0.5, index.html, script.js, style.css)
+│
+├── main.py
+├── launcher.py
+├── launcher.exe
+└── run.py

@@ -1,5 +1,5 @@
 @echo off
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 call .\AiTOMM\Scripts\activate.bat
-python ImageGenarator.py a_curious,_friendly,_and_humorous_person_with_interests_in_geography,_history,_pop_culture,_and_multimedia_content,_located_in_Rajpur_Sonarpur,_West_Bengal,_India
+python ImageGenarator.py Diagram_illustrating_various_aspects_of_memory,_including_types_such_as_procedural,_episodic,_semantic,_and_working_memory,_as_well_as_factors_influencing_memory_like_conditioning_and_emotion.
 pause

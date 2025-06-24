@@ -5,7 +5,7 @@ from groq import Groq
 FILE_PATH = r"Core/Memo/memory.db"
 
 def summarizer(user_data):
-    client = Groq(api_key="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")
+    client = Groq(api_key=" enter_your_api_key_here")  # Replace with your actual API key
     try:
         if isinstance(user_data, str):
             user_data = user_data.strip()
